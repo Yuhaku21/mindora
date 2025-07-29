@@ -43,6 +43,7 @@
         -ms-overflow-style: none;
         scrollbar-width: none;
         position: relative;
+        min-height: 0; /* penting agar tidak mendorong ke bawah */
       }
 
       .main-content::-webkit-scrollbar {
@@ -116,10 +117,10 @@
       .bottom-nav a {
         flex: 1;
         text-align: center;
-        padding: 0.75rem 0;
+        padding: 20px 0; /* 16px atas dan bawah */
         text-decoration: none;
         color: #333;
-        font-size: 14px;
+        font-size: 15px;
       }
 
       .bottom-nav a:hover {
@@ -148,7 +149,7 @@
           <div class="alert alert-primary" role="alert">
             <marquee behavior="" direction=""> Mau pesan jasa ojek atau kurir? cuma 5.000🔥 (Khusus daerah mataram) </marquee>
           </div>
-          <div class="row g-3 mb-5">
+          <div class="row g-3 mb-0">
             <div class="col-6">
               <a href="driver-motor.html" style="text-decoration: none; color: black">
                 <div class="service-card">Driver Motor 🛵</div>
@@ -170,6 +171,29 @@
               </a>
             </div>
           </div>
+          <!--Share-->
+          <div class="container mt-5 text-center">
+            <h5 class="mb-3"><b>🎉 Ajak Teman, Dapatkan Jasa Gratis dari Mindora! 🚀</b></h5>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Lihat Detail</button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h3 class="modal-title fs-5" id="exampleModalLabel">Bagikan link Mindora milikmu ke teman-temanmu sekarang juga!</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">Kalau 5 orang berhasil kamu ajak, cukup kirim screenshot buktinya ke admin, dan kamu bisa klaim layanan gratis dari Mindora!</div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                    <button type="button" class="btn btn-primary" onclick="salinLink()">Salin Link</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -180,7 +204,34 @@
         <a href="akun.html"><b>Akun</b></a>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="time.js"></script>
+    <!-- Script -->
+    <script>
+      function salinLink() {
+        const text = "Hai aku sudah menggunakan jasa kurir dan driver di Mindora nih, Yuk ajak 5 temanmu supaya bisa mendapatkan 1x jasa kurir dan driver gratis!  cek link di mindora-one.vercel.apps";
+
+        navigator.clipboard
+          .writeText(text)
+          .then(() => {
+            Swal.fire({
+              icon: "success",
+              title: "Link berhasil disalin!",
+              text: "Yuk langsung bagikan ke teman-temanmu sekarang.",
+              confirmButtonText: "Siap 👍",
+              confirmButtonColor: "#3085d6",
+            });
+          })
+          .catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Gagal menyalin link",
+              text: err,
+              confirmButtonText: "Tutup",
+            });
+          });
+      }
+    </script>
   </body>
 </html>
