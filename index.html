@@ -242,14 +242,7 @@
     <script src="time.js"></script>
     <script src="install.js"></script>
     <!--Script untuk service worker-->
-    <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker
-          .register("sw.js")
-          .then(() => console.log("Service Worker registered"))
-          .catch((err) => console.error("SW registration failed:", err));
-      }
-    </script>
+    <script src="main.js"></script>
     <!-- Script -->
     <script>
       function salinLink() {
