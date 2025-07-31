@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mindora Mobile</title>
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#0d6efd" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
@@ -153,7 +155,7 @@
           <p id="greeting"></p>
           <a href="https://wa.me/6287835196116?text=Hai%20admin%20mindora%F0%9F%91%8B.%20Aku%20ingin%20bertanya%20nih" class="badge mb-3" style="text-decoration: none">Hubungi Admin <i class="bi bi-headset"></i></a>
           <p><strong>Mau pesan jasa apa hari ini ?</strong></p>
-
+          <button id="installBtn" class="btn btn-success d-none">Install Mindora</button>
           <div class="alert alert-primary" role="alert">
             <marquee behavior="" direction=""> Mau pesan jasa ojek atau kurir? cuma 5.000🔥 (Khusus daerah mataram) </marquee>
           </div>
@@ -206,7 +208,6 @@
               <a href="driver-motor.html" class="btn btn-dark" style="font-size: 14px">Lihat</a>
             </div>
           </div>
-
           <div class="container mt-4 text-center">
             <!-- Button trigger modal -->
 
@@ -239,6 +240,12 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="time.js"></script>
+    <!--Script untuk service worker-->
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js").then(() => console.log("Service Worker registered"));
+      }
+    </script>
     <!-- Script -->
     <script>
       function salinLink() {
