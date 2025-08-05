@@ -114,10 +114,20 @@
       }
 
       .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
         display: flex;
-        border-top: 2px solid #ccc;
+        justify-content: space-around;
+        align-items: center;
         background-color: #fff;
-        box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.2); /* shadow ke atas saja */
+        border-top: 2px solid #ccc;
+        box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.2); /* shadow ke atas */
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        padding: 1px 0;
+        z-index: 999; /* agar tidak tertutup elemen lain */
       }
 
       .bottom-nav a {
@@ -237,7 +247,7 @@
           </div>
         </div>
       </div>
-      <div class="bottom-nav shadow-lg" style="border-top-left-radius: 30px; border-top-right-radius: 30px">
+      <div class="bottom-nav shadow-lg text-center justify-content-center align-items-center" style="border-top-left-radius: 30px; border-top-right-radius: 30px">
         <a href="#"><b>Beranda</b></a>
         <a href="point.html"><b>Point</b></a>
         <a href="pesan.html"><b>Pesan</b></a>
