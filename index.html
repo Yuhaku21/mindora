@@ -1,294 +1,206 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mindora Mobile</title>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daguku Mitra</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Poppins Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#0d6efd" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+
     <style>
-      body {
-        background-color: #f0f4f8;
-        font-family: "Segoe UI", sans-serif;
-        margin: 0;
-        font-family: "Poppins", sans-serif;
-      }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #ffffff;
+        }
 
-      .app-container {
-        max-width: 430px;
-        margin: auto;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        background-color: #fff;
-        border-radius: 10px;
-        overflow: hidden;
-        border: 1px solid #ccc;
-      }
+        .app-container {
+            max-width: 420px;
+            margin: auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-      .top-bar {
-        padding: 1rem;
-        background-color: #fff;
-        border-bottom: 1px solid #ddd;
-        font-weight: bold;
-        font-size: 18px;
-        text-align: left;
-        margin-left: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
+        .header {
+            padding: 20px;
+            font-weight: 600;
+            font-size: 18px;
+        }
 
-      .main-content {
-        flex: 1;
-        overflow-y: scroll;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-        position: relative;
-        min-height: 0; /* penting agar tidak mendorong ke bawah */
-      }
+        .install-btn {
+            background: #4f46e5;
+            color: white;
+            border-radius: 12px;
+            font-size: 13px;
+            padding: 6px 15px;
+        }
 
-      .main-content::-webkit-scrollbar {
-        display: none;
-      }
+        .greeting {
+            padding: 0 20px;
+        }
 
-      #map {
-        height: 250px;
-        width: 100%;
-        border-radius: 10px;
-      }
+        .balance-card {
+            margin: 20px;
+            padding: 20px;
+            border-radius: 20px;
+            background: #f8fafc;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
 
-      .driver-info {
-        position: absolute;
-        top: 160px;
-        right: 20px;
-        background: white;
-        padding: 10px 15px;
-        border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        font-family: Arial, sans-serif;
-        z-index: 1000;
-      }
+        .deposit-btn {
+            border-radius: 12px;
+            font-size: 13px;
+        }
 
-      .driver-info h4 {
-        margin: 0;
-        font-size: 14px;
-      }
+        .quick-menu {
+            padding: 0 20px;
+        }
 
-      .driver-info .count {
-        font-size: 20px;
-        font-weight: bold;
-        color: green;
-      }
+        .quick-menu .btn {
+            border-radius: 15px;
+            font-size: 13px;
+            background: #f1f5f9;
+            border: none;
+        }
 
-      .section-content {
-        padding: 1rem;
-      }
+        .main-menu {
+            padding: 20px;
+        }
 
-      .service-card {
-        background-color: white;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        padding: 1rem;
-        text-align: center;
-        height: 120px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        font-weight: 500;
-        transition: all 0.3s ease;
-      }
+        .menu-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: 0.2s;
+            cursor: pointer;
+        }
 
-      .service-card:hover {
-        background-color: #e2e6ea;
-        cursor: pointer;
-      }
+        .menu-card:hover {
+            transform: translateY(-5px);
+        }
 
-      .service-img {
-        height: 40px;
-        margin-bottom: 8px;
-        opacity: 0.7;
-      }
+        .menu-icon {
+            font-size: 24px;
+            color: #4f46e5;
+            margin-bottom: 10px;
+        }
 
-      .bottom-nav {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        background-color: #fff;
-        border-top: 2px solid #ccc;
-        box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.2); /* shadow ke atas */
-        border-top-left-radius: 30px;
-        border-top-right-radius: 30px;
-        padding: 1px 0;
-        z-index: 999; /* agar tidak tertutup elemen lain */
-      }
+        .bottom-nav {
+            margin-top: auto;
+            border-top: 1px solid #eee;
+            padding: 10px 0;
+            background: #fff;
+        }
 
-      .bottom-nav a {
-        flex: 1;
-        text-align: center;
-        padding: 22px 0; /* 16px atas dan bawah */
-        text-decoration: none;
-        color: #333;
-        font-size: 15px;
-        margin-left: 20px;
-        margin-right: 10px;
-      }
+        .bottom-nav a {
+            text-decoration: none;
+            font-size: 12px;
+            color: #6b7280;
+        }
 
-      .bottom-nav a:hover {
-        background-color: #e9ecef;
-        color: rgb(4, 4, 83);
-      }
-
-      .badge {
-        display: inline-block;
-        background-color: #e8f6ec;
-        color: #2b614c;
-        font-size: 14px;
-        font-weight: 500;
-        padding: 6px 12px;
-        border-radius: 8px;
-        border: 1px solid #c3e6cc;
-        font-family: Arial, sans-serif;
-      }
+        .bottom-nav a.active {
+            color: #4f46e5;
+            font-weight: 600;
+        }
     </style>
-  </head>
-  <body>
+</head>
+
+<body>
+
     <div class="app-container">
-      <div class="top-bar">
-        <img src="Group 3.png" alt="" width="100px" />
-        <button id="installBtn" class="btn btn-success d-none" style="font-size: 12px">Install Mindora <i class="bi bi-phone"></i></button>
-      </div>
 
-      <div class="main-content">
-        <div class="section-content">
-          <h5>Halo Selamat Datang di <strong style="color: rgb(3, 3, 94)">Mindora</strong></h5>
-          <p id="greeting"></p>
-          <a href="https://wa.me/6287835196116?text=Hai%20admin%20mindora%F0%9F%91%8B.%20Aku%20ingin%20bertanya%20nih" class="badge mb-3" style="text-decoration: none">Hubungi Admin <i class="bi bi-headset"></i></a>
-          <p style="font-size: 14px">Jam Operasional: <strong>08.00 - 22.00 WITA</strong></p>
-          <p><strong>Mau pesan jasa apa hari ini ?</strong></p>
-          <button id="installBtn" class="btn btn-success d-none">Install Mindora</button>
-          <div class="alert alert-primary" role="alert">
-            <marquee behavior="" direction=""> Mau pesan Ngojek atau Belanja? cuma 8.000🔥 (Khusus daerah mataram) </marquee>
-          </div>
-          <div class="row g-3 mb-0">
-            <div class="col-6">
-              <a href="driver-motor.html" style="text-decoration: none; color: black">
-                <div class="service-card shadow-sm">Driver Motor 🛵</div>
-              </a>
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center header border-bottom mb-4">
+            <div>
+                <img src="mindora.png" alt="" width="100px">
             </div>
-            <div class="col-6">
-              <a href="kurir.html" style="text-decoration: none; color: black">
-                <div class="service-card shadow-sm">Jasa Kurir 📦</div>
-              </a>
-            </div>
-            <div class="col-6">
-              <a href="driver-mobil.html" style="text-decoration: none; color: black">
-                <div class="service-card shadow-sm">Driver Mobil 🚗</div>
-              </a>
-            </div>
-            <div class="col-6">
-              <a href="antar.html" style="text-decoration: none; color: black">
-                <div class="service-card shadow-sm">Belanja 🛒</div>
-              </a>
-            </div>
-          </div>
-          <!--Promo-->
-          <div class="promo mt-4 mb-3">
-            <h4><b>Promo Harga Terbaik 🔥</b></h4>
-          </div>
-          <!--Share-->
-          <div class="card mb-3 shadow-sm" style="max-width: 500px">
-            <div class="card-body d-flex justify-content-between align-items-center">
-              <div class="text-dark">
-                <p class="mb-0" style="font-size: 14px">Beli Makanan dan Minuman 5x di Mindora, Gratis Ongkir 1x 🛵💨</p>
-              </div>
-              <a href="antar.html" class="btn btn-dark" style="font-size: 14px">Lihat</a>
-            </div>
-          </div>
-          <div class="card mb-3 shadow-sm" style="max-width: 500px">
-            <div class="card-body d-flex justify-content-between align-items-center">
-              <p class="mb-0 text-dark" style="font-size: 14px">Ajak Teman, Dapatkan Jasa Gratis dari Mindora! 🚀</p>
-              <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal" style="font-size: 14px">Lihat</button>
-            </div>
-          </div>
-          <div class="card mb-3 shadow-sm" style="max-width: 500px">
-            <div class="card-body d-flex justify-content-between align-items-center">
-              <div class="text-dark">
-                <p class="mb-0" style="font-size: 14px">Butuh ojek? Harga bersahabat setiap hari ✨</p>
-              </div>
-              <a href="driver-motor.html" class="btn btn-dark" style="font-size: 14px">Lihat</a>
-            </div>
-          </div>
-          <div class="container mt-4 text-center">
-            <!-- Button trigger modal -->
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h4 class="modal-title fs-5" id="exampleModalLabel">Share Link Mindora dan Dapatkan Layanan Gratisnya</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">Kalau 3 orang berhasil kamu ajak, cukup kirim screenshot buktinya ke admin, dan kamu bisa klaim 1x layanan gratis dari Mindora!</div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                    <button type="button" class="btn btn-primary" onclick="salinLink()">Salin Link</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            <button id="installBtn" class="btn install-btn">Install</button>
         </div>
-      </div>
 
-      <!--Navbar <div class="bottom-nav shadow-lg text-center justify-content-center align-items-center" style="border-top-left-radius: 30px; border-top-right-radius: 30px">
-        <a href="#"><b>Beranda</b></a>
-        <a href="point.html"><b>Point</b></a>
-        <a href="pesan.html"><b>Pesan</b></a>
-        <a href="akun.html"><b>Akun</b></a>
-      </div>-->
+        <!-- Greeting -->
+        <div class="greeting">
+            <small class="text-muted">Selamat Pagi</small>
+            <h6 class="fw-semibold mt-1">Halo, Muhammad Farhan<br>Indra Saputra</h6>
+        </div>
+
+        <!-- Balance -->
+        <div class="balance-card d-flex justify-content-between align-items-center">
+            <div>
+                <div>Saldo <strong>Rp 100.000</strong></div>
+                <small class="text-muted">Point 500</small>
+            </div>
+            <button class="btn btn-outline-primary deposit-btn">Deposit</button>
+        </div>
+
+        <!-- Quick Menu -->
+        <div class="quick-menu d-flex justify-content-between">
+            <button class="btn w-100 me-2"><i class="bi bi-phone"></i> Pulsa</button>
+            <button class="btn w-100 me-2"><i class="bi bi-wallet2"></i> Top-Up</button>
+            <button class="btn w-100"><i class="bi bi-receipt"></i> Tagihan</button>
+        </div>
+
+        <!-- Main Menu -->
+        <div class="main-menu">
+            <div class="row g-3">
+                <div class="col-6">
+                    <div class="menu-card" onclick="menuClick('Pulsa')">
+                        <div class="menu-icon"><i class="bi bi-phone"></i></div>
+                        <p style="font-size: 14px;">Digital Product</p>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="menu-card" onclick="menuClick('Belanja')">
+                        <div class="menu-icon"><i class="bi bi-bag"></i></div>
+                        <p style="font-size: 14px;">Fresh Market</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav d-flex justify-content-around text-center fixed-bottom">
+            <a href="#" class="active">
+                <div><i class="bi bi-house"></i></div>
+                Beranda
+            </a>
+            <a href="#">
+                <div><i class="bi bi-star"></i></div>
+                Point
+            </a>
+            <a href="#">
+                <div><i class="bi bi-clock-history"></i></div>
+                Transaksi
+            </a>
+            <a href="#">
+                <div><i class="bi bi-person"></i></div>
+                Profile
+            </a>
+        </div>
+
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="time.js"></script>
     <script src="install.js"></script>
     <!--Script untuk service worker-->
     <script src="main.js"></script>
-    <!-- Script -->
     <script>
-      function salinLink() {
-        const text = "Hai aku sudah menggunakan jasa kurir dan driver di Mindora nih, Yuk ajak 3 temanmu supaya bisa mendapatkan 1x jasa kurir dan driver gratis!  cek link di mindora-one.vercel.apps";
-
-        navigator.clipboard
-          .writeText(text)
-          .then(() => {
-            Swal.fire({
-              icon: "success",
-              title: "Link berhasil disalin!",
-              text: "Yuk langsung bagikan ke teman-temanmu sekarang.",
-              confirmButtonText: "Siap 👍",
-              confirmButtonColor: "#3085d6",
-            });
-          })
-          .catch((err) => {
-            Swal.fire({
-              icon: "error",
-              title: "Gagal menyalin link",
-              text: err,
-              confirmButtonText: "Tutup",
-            });
-          });
-      }
+        function menuClick(menu) {
+            alert("Menu dipilih: " + menu);
+        }
     </script>
-  </body>
+
+</body>
+
 </html>
-
-
