@@ -31,6 +31,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            padding-bottom: 80px; /* ⬅️ TAMBAHAN */
         }
 
         .header {
@@ -126,7 +127,7 @@
         <!-- Header -->
         <div class="d-flex justify-content-between align-items-center header border-bottom mb-4">
             <div>
-                <img src="mindora.png" alt="" width="100px">
+                <img src="../asset/Group 3.png" alt="" width="100px">
             </div>
             <button id="installBtn" class="btn install-btn">Install</button>
         </div>
@@ -158,17 +159,30 @@
             <div class="row g-3">
                 <div class="col-6">
                     <div class="menu-card" onclick="menuClick('Pulsa')">
-                        <div class="menu-icon"><i class="bi bi-phone"></i></div>
-                        <p style="font-size: 14px;">Digital Product</p>
+                        <div class="menu-icon">📱</div>
+                        <p style="font-size: 14px;">Digital</p>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="menu-card" onclick="menuClick('Belanja')">
-                        <div class="menu-icon"><i class="bi bi-bag"></i></div>
+                        <div class="menu-icon">🥦</div>
                         <p style="font-size: 14px;">Fresh Market</p>
                     </div>
                 </div>
+                <div class="col-6">
+                    <div class="menu-card" onclick="menuClick('Belanja')">
+                        <div class="menu-icon">🛒</div>
+                        <p style="font-size: 14px;">Kurir</p>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="menu-card" onclick="menuClick('Belanja')">
+                        <div class="menu-icon">🛵</div>
+                        <p style="font-size: 14px;">Ojek</p>
+                    </div>
+                </div>
             </div>
+            
         </div>
 
         <!-- Bottom Navigation -->

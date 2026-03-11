@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mindora Mobile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+      body {
+        background-color: #f0f4f8;
+        font-family: "Segoe UI", sans-serif;
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .app-container {
+        max-width: 430px;
+        margin: auto;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #ccc;
+      }
+
+      .top-bar {
+        padding: 1rem;
+        background-color: #fff;
+        border-bottom: 1px solid #ddd;
+        font-weight: bold;
+        font-size: 18px;
+        text-align: left;
+        margin-left: 10px;
+      }
+
+      .main-content {
+        flex: 1;
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        position: relative;
+      }
+
+      .main-content::-webkit-scrollbar {
+        display: none;
+      }
+
+      #map {
+        height: 250px;
+        width: 100%;
+        border-radius: 10px;
+      }
+
+      .driver-info {
+        position: absolute;
+        top: 160px;
+        right: 20px;
+        background: white;
+        padding: 10px 15px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        font-family: Arial, sans-serif;
+        z-index: 1000;
+      }
+
+      .driver-info h4 {
+        margin: 0;
+        font-size: 14px;
+      }
+
+      .driver-info .count {
+        font-size: 20px;
+        font-weight: bold;
+        color: green;
+      }
+
+      .section-content {
+        padding: 1rem;
+      }
+
+      .service-card {
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 1rem;
+        text-align: center;
+        height: 120px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .service-card:hover {
+        background-color: #e2e6ea;
+        cursor: pointer;
+      }
+
+      .service-img {
+        height: 40px;
+        margin-bottom: 8px;
+        opacity: 0.7;
+      }
+
+      .bottom-nav {
+        display: flex;
+        border-top: 1px solid #ccc;
+        background-color: #fff;
+      }
+
+      .bottom-nav a {
+        flex: 1;
+        text-align: center;
+        padding: 0.75rem 0;
+        text-decoration: none;
+        color: #333;
+        font-size: 14px;
+      }
+
+      .bottom-nav a:hover {
+        background-color: #e9ecef;
+        color: rgb(4, 4, 83);
+      }
+
+      .leaflet-popup-content {
+        font-size: 14px;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-container">
+      <!--Navbar-->
+      <div class="top-bar">
+        <img src="Group 3.png" alt="" width="100px" />
+      </div>
+
+      <div class="main-content">
+        <div class="section-content mt-4">
+          <div class="jargon text-center">
+            <h4><b>Mau kemana hari ini?</b></h4>
+            <p>Kemana aja mulai Rp8.000 khusus Mataram 🛵</p>
+          </div>
+          <!--Data diri-->
+          <!--Panduan Pengguna-->
+          <div class="cta-pesan text-center">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-dark mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal" style="font-size: 12px">Cara Pemesanan</button>
+          </div>
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title fs-5 text-center" id="exampleModalLabel">Panduan Pengguna</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Cara memakai layanan jasa driver motor:
+                  <ol>
+                    <li>Pilih layanan <b>"Driver Motor"</b></li>
+                    <li>Masukkan data nama anda seperti nomor hp dan WhatsApp</li>
+                    <li>Masukkan alamat untuk <b>"Lokasi Penjemputan"</b> dan <b>"Alamat Tujuan"</b></li>
+                    <li>Pilih metode pembayaran yang tersedia</li>
+                    <li>Pilih tombol <b>"Buat Pesanan"</b> untuk membuat pesanan</li>
+                    <li>Jika ada notifikas <b>"Pesanan Telah Berhasil dibuat"</b>, klik tombol <b>"Konfirmasi Pembayaran"</b> untuk melakukan pembayaran di WhatsApp</li>
+                    <li>Lakukan pembayaran setelah admin Mindora memberikan rincian total pembayaran menggunakan metode pembayaran yang dipilih</li>
+                    <li>Pesananmu diproses</li>
+                  </ol>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Card-->
+          <div class="card shadow mb-3">
+            <div class="card-body">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Nama Panggilan 👥</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" />
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Nomor WhatsApp 📱</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" />
+              </div>
+            </div>
+          </div>
+          <!--Lokasi awal-->
+          <div class="card shadow">
+            <div class="card-body">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Lokasi Penjemputan 📍</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" />
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Lokasi Tujuan 🎯</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" />
+              </div>
+            </div>
+          </div>
+          <!--Metode-->
+          <div class="card shadow mt-3">
+            <div class="card-body">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Metode Pembayaran</label>
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>Pilih Metode Pembayaran</option>
+                  <option value="Chas">Chas</option>
+                  <option value="Qris">Qris</option>
+                  <option value="Qris">Bank BRI</option>
+                  <option value="Qris">Dana</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!--CTA Pesan-->
+          <div class="d-grid gap-2 mt-3">
+            <button id="buatPesananBtn" class="btn btn-dark" type="button">Buat Pesanan <i class="bi bi-arrow-right-circle"></i></button>
+            <a href="index.html" class="btn btn-outline-dark" type="button">Kembali</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Konfirmasi -->
+    <div class="modal fade" id="pesananModal" tabindex="-1" aria-labelledby="pesananModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="pesananModalLabel">✅ Pesanan Berhasil Dibuat</h5>
+          </div>
+          <div class="modal-body">Silakan hubungi admin Mindora untuk konfirmasi pembayaran.</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.getElementById("buatPesananBtn").addEventListener("click", function () {
+        // Ambil data input
+        const inputs = document.querySelectorAll("#exampleFormControlInput1");
+        const nama = inputs[0].value;
+        const whatsapp = inputs[1].value;
+        const lokasiAwal = inputs[2].value;
+        const lokasiTujuan = inputs[3].value;
+        const metode = document.querySelector("select").value;
+
+        // Validasi sederhana
+        if (!nama || !whatsapp || !lokasiAwal || !lokasiTujuan || metode === "Pilih Metode Pembayaran") {
+          Swal.fire({
+            icon: "warning",
+            title: "Lengkapi Data!",
+            text: "Silakan isi semua kolom sebelum membuat pesanan.",
+          });
+          return;
+        }
+
+        // Siapkan payload dalam bentuk Embed
+        const payload = {
+          embeds: [
+            {
+              title: "📦 Pesanan Baru dari Mindora (Driver Motor)",
+              color: 5814783, // Warna biru muda (hex #58C5F1)
+              fields: [
+                {
+                  name: "👤 Nama Costumer",
+                  value: nama,
+                  inline: false,
+                },
+                {
+                  name: "📱 WhatsApp Costumer",
+                  value: whatsapp,
+                  inline: false,
+                },
+                {
+                  name: "📍 Lokasi Awal",
+                  value: lokasiAwal,
+                  inline: false,
+                },
+                {
+                  name: "🎯 Lokasi Tujuan",
+                  value: lokasiTujuan,
+                  inline: false,
+                },
+                {
+                  name: "💳 Metode Pembayaran",
+                  value: metode,
+                  inline: false,
+                },
+                {
+                  name: "🔗 Hubungi Costumer",
+                  value: `[Klik untuk WhatsApp](https://wa.me/${whatsapp.replace(/^0/, "62")})`,
+                  inline: false,
+                },
+              ],
+              footer: {
+                text: "Mindora System • " + new Date().toLocaleString("id-ID"),
+              },
+            },
+          ],
+        };
+
+        const webhookURL = "https://discordapp.com/api/webhooks/1399634563554087072/Of47LNNnPNmMiqVNy5abXPJ7mpRyhFyDqWCmh5Q02Of9-rN-813sTHyiBKZx8i85AY1V"; // Ganti sesuai webhook Anda
+
+        // Kirim ke Discord Webhook
+        fetch(webhookURL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        })
+          .then(() => {
+            // Tampilkan SweetAlert sukses
+            Swal.fire({
+              icon: "success",
+              title: "Pesanan Berhasil Dibuat!",
+              html: `Silakan hubungi admin Mindora do WhatsApp untuk konfirmasi pembayaran.<br><br>
+            <a href="https://wa.me/6287835196116?text=Hai%20admin%20mindora%F0%9F%91%8B.%20Aku%20ingin%20melakukan%20pembayaran%20nih%20untuk%20jasa%20Ojeknya" target="_blank" class="btn btn-success">
+              Konfirmasi Pembayaran
+            </a>`,
+              showConfirmButton: false,
+            });
+          })
+          .catch((error) => {
+            // Error mengirim ke Discord
+            Swal.fire({
+              icon: "error",
+              title: "Gagal Mengirim Pesanan",
+              text: "Terjadi kesalahan saat mengirim ke Discord. Coba lagi nanti.",
+            });
+          });
+      });
+    </script>
+  </body>
+</html>
